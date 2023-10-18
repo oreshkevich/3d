@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./style.css">
+        <title>Document</title>
+</head>
+
+<body>
+        <div>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta, reprehenderit nulla iure repudiandae
+                tenetur
+                beatae nobis quae, temporibus minima dolores voluptatibus recusandae corrupti? Repellendus, quae. Maxime
+                dolores
+                iste illum eos?
+        </div>
+        <div class="hi" id="hi">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta, reprehenderit nulla iure repudiandae
+                tenetur beatae nobis quae, temporibus minima dolores voluptatibus recusandae corrupti? Repellendus,
+                quae. Maxime dolores iste illum eos?
+        </div>
+        <source src="video.webm" type="video/webm"><!-- WebM/VP8 для Firefox4, Opera, и Chrome -->
+        <param name="movie" value="video.swf">
+        </object>
+        <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r123/three.min.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/GITFLoader.js"></script> -->
+        <script>
+                let scene = new THREE.Scene();
+                let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+                camera.position.z = 3; // Отдаление камеры
+
+                let renderer = new THREE.WebGLRenderer();
+                renderer.setClearColor(0x404040);
+                renderer.setSize(innerWidth, innerHeight);
+
+                renderer.domElement.setAttribute("id", "Church3DObj");
+                let model = document.getElementById('hi')
+                model.insertBefore(renderer.domElement, model.firstChild);
+
+                let controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+                const aLight = new THREE.DirectionalLight(0xffffff, 1.5);
+                aLight.position.setScalar(10);
+                scene.add(aLight, new THREE.AmbientLight(0xffffff, 0.5));
+
+                let loader = new THREE.GLTFLoader();
+                let obj = null;
+
+                loader.load('./scene.gltf', function (gltf) {
+                        obj = gltf.scene;
+                        scene.add(obj);
+                });
+
+                renderer.setAnimationLoop(_ => {
+                        renderer.render(scene, camera);
+                })
+                function animate() {
+                        requestAnimationFrame(animate)
+                        obj.rotation.y += 0.005;
+                        renderer.render(scene, camera)
+                }
+                animate();
+        </script>
+
+        <script src="./js.js">
+        </script>
+        <div>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta, reprehenderit nulla iure repudiandae
+                tenetur
+                beatae nobis quae, temporibus minima dolores voluptatibus recusandae corrupti? Repellendus, quae. Maxime
+                dolores
+                iste illum eos?
+        </div>
+        <video controls width="400" height="300">
+                <source src="video.webm" type="video/webm">
+</body>
+
+</html>

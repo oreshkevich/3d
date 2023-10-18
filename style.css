@@ -1,0 +1,9 @@
+body {
+  /* overflow: hidden; */
+  margin: 0;
+}
+
+.hi canvas {
+  width: 1000px !important;
+  height: 500px !important;
+}
